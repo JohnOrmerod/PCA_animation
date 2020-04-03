@@ -1,12 +1,4 @@
 
-<script type="text/javascript">
-    require([
-        "https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.js",
-    ], katex => {
-        ...
-    });
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css" integrity="sha384-bsHo4/LA+lkZv61JspMDQB9QP1TtO4IgOf2yYS+J6VdAYLVyx1c3XKcsHh0Vy8Ws" crossorigin="anonymous">
 
 ## Principal component analysis
  

@@ -1,4 +1,8 @@
- 
+
+<script id="MathJax-script" async
+    src="<url-to-your-site>/mathjax/tex-chtml.js"></script>
+
+
 ## Primcipal component analysis
  
 The $i$th sample ${\bf x}_i$ gets transformed to principal component space via the transformation

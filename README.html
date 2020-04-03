@@ -367,6 +367,48 @@ summary {
 
 <div id="primcipal-component-analysis" class="section level2">
 <h2>Primcipal component analysis</h2>
+<p>The <span class="math inline">\(i\)</span>th sample <span class="math inline">\({\bf x}_i\)</span> gets transformed to principal component space via the transformation</p>
+<p><span class="math display">\[y_{i1}=u_{11}x_{i1}+u_{21}x_{i2}+\dots+u_{p1}x_{ip}\]</span></p>
+<p>and the elements <span class="math inline">\(u_{11},u_{21},\dots,u_{p1}\)</span> are referred to the loadings of the first PC.</p>
+<p>The loading vector <span class="math inline">\({\bf u}_1=[u_{11},u_{21},\dots,u_{p1}]^T\)</span> defines direction in feature space along which data vary most, i.e.,</p>
+<p><span class="math display">\[\mbox{Var}(Y_1) = {\bf u}^T{\boldsymbol\Sigma}{\bf u}\]</span></p>
+<p>is maximized subject to <span class="math inline">\({\bf u}^T{\bf u}=1\)</span>. Successive principal components similarly maximize variances subject to the constraint that all principal components are orthogonal with unit length.</p>
+<p><strong>Definition:</strong> The <span class="math inline">\(j\)</span>th <em>sample principle component</em> is given by</p>
+<p><span class="math display">\[{\bf Y}_j={\bf X}{\bf u}_j, \qquad j=1,\ldots,p\]</span> where <span class="math inline">\({\bf Y}_j =[y_{1j},\ldots,y_{nj}]\)</span>, <span class="math inline">\(\widehat{\boldsymbol\Sigma} = {\bf U}{\boldsymbol\Lambda}{\bf U}^T\)</span> is the eigendecomposition of <span class="math inline">\(\widehat{\boldsymbol\Sigma}\)</span>.</p>
+<p>The set of all sample pricipal components is given by:</p>
+<p><span class="math display">\[{\bf Y} = {\bf X}{\bf U}\]</span> where the first PC corresponds to the first column of <span class="math inline">\({\bf Y}\)</span>, the second PC corresponds to the second column of <span class="math inline">\({\bf Y}\)</span> and so on. Also,</p>
+<p><span class="math display">\[\mbox{Cov}({\bf Y}) = \mbox{diag}(\lambda_1,\ldots,\lambda_p)\]</span></p>
+<p>Let’s suppose that we are dealing with <span class="math inline">\(p=2\)</span> dimensions. In this case the eigenvector matrix must be of the form</p>
+<p><span class="math display">\[{\bf U} = \left[\begin{array}{rr} \cos(\theta) &amp; -\sin(\theta) \\ \sin(\theta) &amp; \cos(\theta) \end{array} \right]\]</span> Note that</p>
+<p><span class="math display">\[{\bf U}^T{\bf U} = 
+\left[\begin{array}{rr} \cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{array} \right]
+\left[\begin{array}{rr} \cos(\theta) &amp; -\sin(\theta) \\ \sin(\theta) &amp; \cos(\theta) \end{array} \right] = 
+\left[\begin{array}{rr} \cos(\theta)^2 + \sin(\theta)^2 &amp; 0 \\ 0 &amp; \cos(\theta)^2 + \sin(\theta)^2 \end{array} \right] = {\bf I}\]</span> So we have <span class="math inline">\({\bf u}_1^T{\bf u}_1 = {\bf u}_2^T{\bf u}_2 = 1\)</span> and <span class="math inline">\({\bf u}_1^T{\bf u}_2=0\)</span> by construction.</p>
+<p>If we have</p>
+<p><span class="math display">\[{\bf U} = \left[\begin{array}{rr} \cos(\theta) &amp; -\sin(\theta) \\ \sin(\theta) &amp; \cos(\theta) \end{array} \right]\]</span></p>
+<p>and we want to maximize with respect to <span class="math inline">\(\theta\)</span></p>
+<p><span class="math display">\[\begin{align}
+\displaystyle \max_{\theta} \mbox{Var}(Y_1) 
+&amp; \displaystyle = \max_{\theta} \quad \frac{{\bf u}_1^T\widehat{\boldsymbol\Sigma}{\bf u}_1}{{\bf u}_1^T{\bf u}_1}
+\\
+&amp; \displaystyle = \max_{\theta} \quad {\bf u}_1^T\widehat{\boldsymbol\Sigma}{\bf u}_1
+\\
+&amp; = \lambda_1
+\end{align}\]</span></p>
+<p>This gives us a value of <span class="math inline">\(\theta\)</span>. Then <span class="math inline">\({\bf u}_2 = [-\sin(\theta),\cos(\theta)]\)</span> and <span class="math inline">\(\lambda_2 = {\bf u}_2^T\widehat{\boldsymbol\Sigma}{\bf u}_2\)</span>.</p>
+<p>In higher dimensional spaces, e.g., <span class="math inline">\(p=3\)</span> dimensions we can do the same thing with the three rotation matrices:</p>
+<p><span class="math display">\[\begin{align}
+R_x(\theta_x) 
+&amp;= \left[\begin{array}{ccc} 1 &amp; 0 &amp; 0 \\ 0 &amp; \cos\theta_x &amp;  -\sin \theta_x \\ 0 &amp; \sin\theta_x &amp;  \cos \theta_x \end{array}\right] \\ 
+R_y(\theta_y) 
+&amp;= \left[\begin{array}{ccc} \cos \theta_y &amp; 0 &amp; \sin \theta_y \\ 0 &amp; 1 &amp; 0 \\ -\sin \theta_y &amp; 0 &amp; \cos \theta_y \end{array}\right] \\ 
+R_z(\theta_z) 
+&amp;= \left[\begin{array}{ccc} \cos \theta_z &amp;  -\sin \theta_z &amp; 0 \\ \sin \theta_z &amp;   \cos \theta_z &amp; 0 \\ 0 &amp; 0 &amp; 1\end{array}\right]
+\end{align}\]</span></p>
+<p>which are called Jacobi rotation matrices. We can iteratively calculate the angles and apply rotations that maximize the variances in order to find all principal components.</p>
+</div>
+<div id="the-animation-code" class="section level2">
+<h2>The animation code</h2>
 <pre class="{r}"><code>library(tidyverse)
 data(&quot;iris&quot;)
 

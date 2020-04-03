@@ -1,6 +1,4 @@
 
-<script id="MathJax-script" async
-    src="<url-to-your-site>/mathjax/tex-chtml.js"></script>
 
 
 ## Primcipal component analysis
